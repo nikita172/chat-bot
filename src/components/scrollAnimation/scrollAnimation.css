@@ -1,0 +1,25 @@
+/* Style for the elements that will be animated */
+.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scrollAnimation div{
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+.scrollAnimation div p{
+  font-size: 25px;
+  font-weight: 300;
+
+}
+.scrollAnimation div img {
+  margin-right: 10px;
+}

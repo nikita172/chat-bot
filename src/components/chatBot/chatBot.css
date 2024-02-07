@@ -1,0 +1,543 @@
+.chatBotContainer{
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+}
+.chatBotContainer.expand{
+  left: 0;
+  right: 0;
+  top: 100px;
+  bottom: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  
+}
+
+
+@keyframes openChat {
+  from{
+    transform: scale(0);
+  }to{
+    transform: scaleX(1);
+  } 
+}
+.chats{
+  border-radius: 10px;
+  background-color: rgb(229, 225, 225);
+  box-shadow: -4px -5px 13px rgba(0, 0, 0, 0.1);
+  height: 80vh;
+  width: 22vw;
+  /* display: none; */
+  /* animation: openChat 0.25s alternate; */
+  position: relative;
+
+}
+.chats.chat-expand{
+  
+  width: 90%;
+  height: calc(100vh -100px);
+  margin: 20px auto;
+  animation: openChat 0.25s alternate;
+}
+.chatsHeader{
+  background-color: white;
+  height: 70px;
+
+}
+
+.chatsHeaderWrapper{
+  padding: 0px 10px;
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+  padding: 5px;
+}
+.chatsHeader.header-open{
+  display: flex;
+}
+.chatHeaderImg{
+  width: 20px;
+  cursor: pointer;
+}
+.chatHeaderLogo{
+  display: flex;
+  align-items: center;
+}
+.chatHeaderTitle{
+  color: var(--red);
+  font-weight: 700;
+  margin-left: 5px;
+}
+.chatImgDiv{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: var(--orange);
+  padding: 15px;
+  border-radius: 50%;
+  cursor: pointer; 
+}
+.chatImg{
+  width: 30px;
+}
+.chatTabs{
+  display: flex;
+ background-color: white;
+color: black;
+ 
+  
+  /* justify-content: space-between; */
+}
+.chatbotTab{
+flex:1;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+ padding-top: 10px;
+  padding-bottom: 7px;
+
+}
+.chatbotTab.selected{
+   background-color: var(--red);
+  color: white;
+}
+.messageTab{
+   padding-top: 10px;
+  padding-bottom: 7px;
+flex:1;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+
+
+}
+.messageTab.selected{
+   background-color: var(--red);
+  color: white;
+}
+.registerDiv{
+  padding: 20px;
+}
+
+
+
+
+/* all chats */
+.allChats{
+  height: calc(100% - 70px);
+  width: 100%;
+  overflow-y: scroll;
+  margin-bottom: 50px;
+  overflow-x: hidden;
+}
+.allChatsWrapper{
+  margin-top: 50px;
+  margin-bottom: 50px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat{
+  border: 1px solid var(--lightGray);
+  border-radius: 20px;
+  padding: 10px;
+  background-color: white;
+  width: 200px;
+  margin: 15px;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; */
+  /* height: 50px; */
+}
+
+.chatTitle{
+  font-size: 16px;
+  font-weight: 500;
+}
+.chatOptions{
+  display: flex;
+  flex-direction: column;
+  gap:5px;
+  margin: 20px;
+}
+.chatOption{
+  background-color: white;
+  outline: none;
+  border: 1px solid var(--lightGray);
+  border-radius: 10px;
+  font-size: 16px;
+  padding: 5px;
+  background-color: var(--lightGray);
+  
+}
+
+
+/*product styling */
+.chatProducts{
+  display: flex;
+  overflow-x: scroll;
+  border: 1px solid var(--lightGray);
+  border-radius: 10px;
+  background-color: rgb(241, 241, 241); 
+  margin: 15px;
+  width: 270px;
+  &::-webkit-scrollbar {
+    width: 0.5em;
+    height: 0.5em;
+  }
+}
+.product{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  margin-right: 10px;
+  justify-content: center;
+}
+.productImg{
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  /* margin-right: 20px; */
+ 
+}
+
+.productName{
+  background-color: var(--yellow);
+  width: 100%;
+  text-align: center;
+}
+.productPrice, 
+.productName{
+   background-color: var(--yellow);
+  width: 100%;
+  text-align: center;
+  padding: 5px 0px;
+
+ 
+}
+.purchaseNow{
+ background-color: var(--red);
+  width: 100%;
+  text-align: center;
+  padding: 5px 0px;
+  font-size: 15px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
+/* payment form styling */
+
+.paymentFormContainer{
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  position: absolute;
+  bottom: -110%;
+  text-align: center;
+  /* border-radius: 10px; */
+  overflow: hidden;
+  transition:all bottom 4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  
+}
+.paymentWrapper{
+  background-color: var(--lightGray);
+}
+.paymentFormContainer.open-payment{
+  bottom:10px;
+  background-color: rgba(0,0,0,0.5);
+
+}
+.paymentHeader{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: yellow;
+}
+.closePayment{
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+}
+.paymentHeader h2{
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.paymentHeader button{
+  margin-right: 10px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  border: none;
+}
+.paymentForm{
+  display: flex;
+  flex-direction: column;
+  /* gap: 5px; */
+}
+.paymentForm input{
+  background-color:white ;
+  border-radius: 5px;
+  margin: 10px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid gray;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.paymentForm button{
+  background-color: var(--yellow);
+  font-weight: 700;
+  outline: none;
+  border: none;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 5px;
+}
+.form-open{
+  background-color: rgba(0,0,0,0.7);
+}
+/* .chat-invisible{
+  background-color: rgba(0,0,0,0.7);
+}
+.option-invisible{
+  background-color: rgba(0,0,0,0.7);
+
+} */
+.chatBotWrapper{
+  position: relative;
+}
+
+
+
+
+.paymentSuccessfull{
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  position: absolute;
+  bottom: -1000%;
+  text-align: center;
+  /* border-radius: 10px; */
+  overflow: hidden;
+  transition:all bottom 4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+.paymentSuccessfull.add-loader{
+  background-color: rgba(0,0,0,0.5);
+  bottom:0px;
+
+}
+
+
+
+
+/*chats footer */
+
+.chatsFooter{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding:0 20px;
+  height: 50px;
+  border-bottom: 1px solid var(--lightGray);
+  width: auto;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0px;
+  background-color: white;
+  z-index: 10;
+}
+.typeMessage{
+  border: none;
+  outline: none;
+  display: flex;
+  flex: 1;
+  padding: 8px 20px;
+  background-color: var(--lightGray);
+  border-radius: 5px;
+  margin-right: 20px;
+}
+.sendButtons{
+  display: flex;
+  align-items: center;
+}
+.sendButtons img{
+  margin-right: 5px;
+  width: 20px;
+}
+
+.selfGenetrated{
+  /* position: absolute; */
+  background-color: var(--yellow);
+  border-radius: 10px;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-left: 50px;
+}
+
+
+.selfGenetratedLoading{
+  /* background-color: #ffff00; */
+  /* height: 20px; */
+  /* width: 60px; */
+  /* margin: 20px; */
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.payment-success{
+  width: 100%;
+  height: 200px;
+}
+.paymentWrapperfullScreen{
+  position: absolute;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.paymentSuccessContainer{
+  width: 250px;
+  height: 200px;
+
+}
+.paymentHeader h4{
+  padding: 10px;
+}
+.loader{
+  position: absolute;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.loginSection{
+    display: flex;
+    flex-direction: column;  
+}
+#loginContainer {
+    display: flex;
+    padding-top: 80px;
+    height: calc(100vh - 80px);
+    width: 100vw;  
+}
+.loginContainerLeft{   
+    padding-top: 50px;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;   
+}
+.loginContainerRight{
+    display: flex;
+    flex: 3;
+}
+.rightImg{
+   width: 100%;
+   object-fit: cover;   
+   height: 100%;
+}
+.loginHeading {
+    margin: 5px;
+}
+.inputGroup {
+    position: relative;
+    margin-bottom: 10px;
+}
+.inputGroup input:focus {
+    border-color: #2f5174;
+}
+#loginForm {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}   
+input {
+    display: block;
+    border: 1px solid #ddd;
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 4px;
+}
+input:focus {
+    background: rgba(145, 145, 145, 0.2);
+}
+
+.inputEmail .icons,
+.inputPassword .icons,
+.inputUserName .icons,
+.inputConfirmPassword .icons{
+    top: 7px;
+    bottom: 7px;
+    margin: auto;
+    left: 10px;
+    position: absolute;
+    height: 20px;
+}
+.inputEmail input,
+.inputPassword input,
+.inputUserName input,
+.inputConfirmPassword input{
+    padding-left: 36px;
+}
+.buttonGroup button {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    background: blue;
+    color: white;
+    /* padding: 10px;    */
+    border-radius: 4px;
+    cursor: pointer;
+    border:none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+}
+#loginBtn:disabled{
+    cursor: not-allowed;
+}
+.reactloading{
+    padding: 0;
+    height: 20px;
+    display: flex;
+    margin: 0;
+}

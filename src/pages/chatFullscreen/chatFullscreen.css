@@ -1,0 +1,57 @@
+.chatFullscreenContainer{
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  left: 0;
+  top: 0;
+}
+
+.chatBotWrapperFullscreen{
+  height: calc(100vh);
+}
+.chatsFullScreen{
+  height: 100%;
+}
+.paymentFormContainerFullScreen{
+
+  display: none;
+}
+.paymentFormContainerFullScreen.open-payment{
+  display: flex;
+}
+
+.chatTabsFullScreen{
+  display: flex;
+ background-color: white;
+color: black;
+align-items: center;
+justify-content: center;
+padding-top: 20px;
+gap: 40px;
+ 
+  
+  /* justify-content: space-between; */
+}
+.chatbotTabFullScreen{
+  padding: 10px 20px;
+  border-radius: 10px;
+cursor: pointer;
+
+
+
+}
+.chatbotTabFullScreen.selected{
+   background-color: var(--red);
+  color: white;
+}
+.messageTabFullScreen{
+   padding: 10px 20px;
+  border-radius: 10px;
+cursor: pointer;
+
+
+}
+.messageTabFullScreen.selected{
+   background-color: var(--red);
+  color: white;
+}

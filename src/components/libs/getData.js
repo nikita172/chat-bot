@@ -6,7 +6,7 @@ export const getData = (text) => {
     return {
       type: "text",
       text: "What are you looking for?",
-      buttons: ["Shoes", "Shirts", "Jeans", "Jackets", "Sweaters"],
+      buttons: ["Shoes", "Shirts", "Jeans", "Jackets", "Sweaters", "Ask the agent"],
       showTemplate: false,
       showPayment: false,
     };
@@ -15,7 +15,7 @@ export const getData = (text) => {
     return {
       type: "text",
       text: "Our company is the no.1 largest company in the world. please explore our collection",
-      buttons: ["Browse products", "What's on sale", "About Us"],
+      buttons: ["Browse products", "What's on sale", "About Us", "Ask the agent"],
       showTemplate: false,
       showPayment: false,
     };

@@ -5,7 +5,9 @@
   left: 0;
   top: 0;
 }
-
+.chatsHeader.fullscreen{
+  box-shadow: 5px 4px 10px rgba(238, 238, 238, 0.5);
+}
 .chatBotWrapperFullscreen{
   height: calc(100vh);
 }
@@ -54,4 +56,42 @@ cursor: pointer;
 .messageTabFullScreen.selected{
    background-color: var(--red);
   color: white;
+}
+
+.chatFullScreenScroll{
+  width: 510px;
+  display: flex;
+  align-items: center;
+  &:hover{
+    .leftArrBtn{
+      visibility: visible;
+    }
+  }
+}
+.chatProductsFullscreen{
+  margin: 10px auto;
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+.product img {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  width: 200px;
+  height: 200px;
+}
+.leftArrBtn{
+  visibility: hidden;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  height: fit-content;
+}
+.leftArrBtn.left{
+  margin-right: 10px;
+}
+.leftArrBtn.rightt{
+  margin-left: 10px;
 }

@@ -1,0 +1,124 @@
+.loginContainer{
+  position: fixed;
+  top:0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color:rgba(0,0,0,0.5);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@keyframes openLoginModal {
+  0%{
+    transform: scale(0%);
+  }
+  100%{
+    transform: scale(100%);
+  }
+  
+}
+
+.loginContainerLeft{      
+  animation: openLoginModal 0.25s;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;   
+}
+
+
+
+#loginForm {
+    background: white; 
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}  
+.registerHeading{
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--lightGray);
+  /* padding-bottom: 10px; */
+   padding: 15px 30px;
+   
+} 
+.loginHeading {
+    margin: 5px;
+    font-weight: 400;
+    margin-right: 50px;
+    line-height: 35px;
+}
+.registerCloseBtn{
+  border: 1px solid var(--lightGray);
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+  cursor: pointer;
+
+}
+.registerCloseIcon{
+  padding: 5px;
+  width: 20px;
+  height: 20px;
+  
+}
+.registerInputsCont{
+  padding: 15px 30px;
+}
+.inputGroup {
+    width: 100%;
+    margin-bottom: 10px;
+     
+}
+.inputGroup input:focus {
+    border-color: #2f5174;
+    background-color: #f0f0f0;
+}
+.registerInput{
+    display: block;
+    border: 2px solid #ddd;
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 12px;
+     padding-left: 36px;
+     width: calc(100% - 50px);
+   
+}
+.buttonGroup{
+  margin-bottom: 20px;
+}
+
+.buttonGroup button {
+    display: block;
+    width: 100%;
+    background: blue;
+    color: white;
+    padding: 12px;   
+    border-radius: 20px;
+    cursor: pointer;
+    border:none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+.navigateToLogin{
+  font-size: 13px;
+  margin-left: 10px;
+
+}
+.anchorTag{
+  color: blue;
+  margin-left: 5px;
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -31,7 +31,8 @@ const images3 = [
   "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg",
   "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg", "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg", "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg", "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg", "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg",
 ]
-const LandingPage = () => {
+const LandingPage = ({ setLoginState, loginState, setOpenChat, reset, setReset }) => {
+  const loginInfo = JSON.parse(localStorage.getItem('loginInfo'))
   const videoRef = useRef(null);
   const videoRef2 = useRef(null);
   const videoRef3 = useRef(null);
@@ -67,8 +68,42 @@ const LandingPage = () => {
             <span>Resources</span>
           </div>
           <div className='authButtons'>
-            <button className='loginBtn'>Login</button>
-            <button className='signupBtn'>Sign up free</button>
+            {!loginInfo &&
+              <button
+                className={`loginBtn ${loginState === "login" ? "selected" : ""}`}
+                onClick={() => {
+                  setOpenChat(false)
+                  setLoginState("login")
+                }}
+              >
+                Login
+              </button>
+            }
+            {!loginInfo &&
+              <button
+                className={`signupBtn ${loginState === "register" ? "selected" : ""}`}
+                onClick={() => {
+                  setOpenChat(false)
+                  setLoginState("register")
+                }
+                }
+              >
+                Sign up free
+              </button>
+            }
+
+            {loginInfo && <button
+              className={`signupBtn`}
+              onClick={() => {
+                localStorage.clear();
+                setReset(!reset)
+
+
+              }}
+            >
+              Logout
+            </button>}
+
           </div>
         </div>
       </header >

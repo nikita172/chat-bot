@@ -29,7 +29,7 @@ function Home({ chat, setChat, openChat, setOpenChat, initialData,
         setReset={setReset} reset={reset} />}
 
       {isLogout &&
-        <ConfirmLogout setReset={setReset} reset={reset} setIsLogout={setIsLogout} />}
+        <ConfirmLogout setReset={setReset} reset={reset} setIsLogout={setIsLogout} setOpenChat={setOpenChat} />}
 
 
     </div>

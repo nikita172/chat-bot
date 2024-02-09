@@ -1,10 +1,12 @@
 import React from 'react';
 import x from "../../assets/images/x.svg"
-const ConfirmLogout = ({ setReset, reset, setIsLogout }) => {
+const ConfirmLogout = ({ setReset, reset, setIsLogout, setOpenChat }) => {
   const logoutHandler = () => {
     localStorage.clear();
     setReset(!reset);
     setIsLogout(false);
+    setOpenChat(false);
+
   }
   const cancelLogoutHandler = () => {
     setReset(!reset);

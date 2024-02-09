@@ -363,28 +363,34 @@ const ChatFullcreen = ({ chat, setChat, initialData,
                   }}>
                     <MainContainer>
                       <ChatContainer>
-                        {!loadingMsg &&
-                          <MessageList
-                            scrollBehavior="auto"
-                          >
-                            <button
-                              onClick={() => {
-                                setScrollTrigger(!scrollTrigger)
-                                setSelectedTab("chatbotTab")
-                              }
-                              }
-                              className='messageBackBtn'
-                            >
-                              <img src={back} className='messageBackIcon' />
-                            </button>
-                            {messages.length > 0 ?
-                              messages.map((message, i) => {
-                                return <Message key={i} model={message} />
-                              }) :
-                              <div className='nomessages'>no messages yet!</div>
+
+                        <MessageList
+                          scrollBehavior="auto"
+                        >
+                          <button
+                            onClick={() => {
+                              setScrollTrigger(!scrollTrigger)
+                              setSelectedTab("chatbotTab")
                             }
-                          </MessageList>
-                        }
+                            }
+                            className='messageBackBtn'
+                          >
+                            <img src={back} className='messageBackIcon' />
+                          </button>
+                          {
+                            loadingMsg ?
+                              <div className='nomessages'>
+                                <ReactLoading type="bubbles" color="blue"
+                                  height={100} width={50} />
+                              </div> :
+                              messages.length > 0 ?
+                                messages.map((message, i) => {
+                                  return <Message key={i} model={message} />
+                                }) :
+                                <div className='nomessages'>no messages yet!</div>
+                          }
+                        </MessageList>
+
                         <MessageInput placeholder="Type message here" onSend={handleSend} />
                       </ChatContainer>
                     </MainContainer>

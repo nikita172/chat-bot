@@ -43,7 +43,6 @@ const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTa
 
   const navigate = useNavigate()
 
-
   useEffect(() => {
     scrollToBottom();
   }, []);
@@ -397,28 +396,33 @@ const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTa
                       <div ref={chatContainerRef} style={{ position: "absolute", height: "calc(100% - 50px)", width: "100%" }}>
                         <MainContainer>
                           <ChatContainer>
-                            {!loadingMsg &&
-                              <MessageList
-                                scrollBehavior="auto"
+
+                            <MessageList
+                              scrollBehavior="auto"
+                            >
+                              <button
+                                onClick={() => {
+                                  setScrollTrigger(!scrollTrigger);
+                                  setSelectedTab("chatbotTab");
+                                }}
+                                className='messageBackBtn'
                               >
-                                <button
-                                  onClick={() => {
-                                    setScrollTrigger(!scrollTrigger);
-                                    setSelectedTab("chatbotTab");
-                                  }}
-                                  className='messageBackBtn'
-                                >
-                                  <img src={back} className='messageBackIcon' />
-                                </button>
-                                {
+                                <img src={back} className='messageBackIcon' />
+                              </button>
+                              {
+                                loadingMsg ?
+                                  <div className='nomessages'>
+                                    <ReactLoading type="bubbles" color="blue"
+                                      height={100} width={50} />
+                                  </div> :
                                   messages.length > 0 ?
                                     messages.map((message, i) => {
                                       return <Message key={i} model={message} />
                                     })
                                     :
                                     <div className='nomessages'>no messages yet!</div>
-                                }
-                              </MessageList>}
+                              }
+                            </MessageList>
                             <MessageInput placeholder="Type message here" onSend={handleSend} />
                           </ChatContainer>
                         </MainContainer>

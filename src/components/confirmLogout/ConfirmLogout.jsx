@@ -6,7 +6,6 @@ const ConfirmLogout = ({ setReset, reset, setIsLogout, setOpenChat }) => {
     setReset(!reset);
     setIsLogout(false);
     setOpenChat(false);
-
   }
   const cancelLogoutHandler = () => {
     setReset(!reset);

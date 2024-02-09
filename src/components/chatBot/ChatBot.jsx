@@ -342,7 +342,7 @@ const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTa
                                     onScroll={handleScroll}>
                                     {d.content.map((prod, loc) => (
                                       <div className='product' key={prod._id}>
-                                        <img className='productImg' src={`${apiUrl}/public/images/${prod.img[0]}`} />
+                                        <img className='productImg' src={prod.img} />
                                         <h4 className='productName'>{prod.brandName}</h4>
                                         <span className='productPrice'>${prod.mrp}</span>
                                         <span className='productPrice'>{prod.aboutProductShort}</span>

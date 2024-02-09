@@ -27,20 +27,24 @@ var socket, selectedChatCompare;
 
 const ChatFullcreen = ({ chat, setChat, initialData,
   selectedTab, setSelectedTab, setOpenChat, setLoginState }) => {
+
+  const loginInfo = JSON.parse(localStorage.getItem("loginInfo"));
+
+  const endRef = useRef(null);
+  const containerRef = useRef(null);
+
   const [openPaymentForm, setOpenPaymentForm] = useState(false);
   const [scrollTrigger, setScrollTrigger] = useState(false);
   const [loading, setLoading] = useState(false);
   const [purchase, setPurchase] = useState(false);
-  const navigate = useNavigate();
-  const endRef = useRef(null);
   const [chatId, setChatId] = useState();
   const [messages, setMessages] = useState([
   ]);
-  const [reset, setReset] = useState(false);
-  const username = useRef();
-  const password = useRef();
+  const [loadingMsg, setloadingMsg] = useState(true);
 
-  const containerRef = useRef(null);
+
+  const navigate = useNavigate();
+
   const scrollLeft = () => {
     if (containerRef.current) {
       containerRef.current.scrollLeft -= 200;
@@ -52,8 +56,6 @@ const ChatFullcreen = ({ chat, setChat, initialData,
       containerRef.current.scrollLeft += 200;
     }
   };
-
-  const loginInfo = JSON.parse(localStorage.getItem("loginInfo"));
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -153,6 +155,7 @@ const ChatFullcreen = ({ chat, setChat, initialData,
     setChat((prev) => [...prev, newData])
     setScrollTrigger(!scrollTrigger)
   }
+
   useEffect(() => {
     const getChat = async () => {
       const loginInfo = JSON.parse(localStorage.getItem("loginInfo"));
@@ -175,15 +178,18 @@ const ChatFullcreen = ({ chat, setChat, initialData,
     getChat();
 
   }, [])
+
   useEffect(() => {
     socket = io(ENDPOINT);
     socket.emit("setup", loginInfo);
     socket.on("connected", () => {
     })
   }, []);
+
   const fetchMessages = async () => {
     if (!chatId) return;
     try {
+      setloadingMsg(true);
       const { data } = await axios.get(
         `${apiUrl}/api/message/${chatId}`
       );
@@ -197,8 +203,12 @@ const ChatFullcreen = ({ chat, setChat, initialData,
       })
       setMessages(newData);
       socket.emit("join chat", chatId);
+      setloadingMsg(false);
+
     } catch (error) {
       console.log(error)
+      setloadingMsg(false);
+
     }
   };
   useEffect(() => {
@@ -206,32 +216,6 @@ const ChatFullcreen = ({ chat, setChat, initialData,
     selectedChatCompare = chatId;
   }, [chatId])
 
-  const handleClick = async (e) => {
-    e.preventDefault()
-    const obj = {
-      username: username.current.value,
-      password: password.current.value,
-      userType: "User"
-
-    }
-    try {
-      const data = await axios.post(`${apiUrl}/admin/register`, obj)
-      if (data.data) {
-        localStorage.setItem('loginInfo', JSON.stringify(data.data.admin._id))
-      }
-      const res = {
-        userId: data.data.admin._id,
-        adminId: "65bc9457e5434f76dd38938d"
-      }
-      const result = await axios.post(`${apiUrl}/api/chat`, res)
-      console.log(result)
-      setReset(!reset)
-      setChatId(result.data._id)
-    }
-    catch (err) {
-      console.log(err)
-    }
-  }
   const handleSend = async (newMessage) => {
     try {
       const { data } = await axios.post(
@@ -254,6 +238,7 @@ const ChatFullcreen = ({ chat, setChat, initialData,
       console.log(error)
     }
   };
+
   useEffect(() => {
     socket.on("message received", (newMessageRecieved) => {
       const newData = {
@@ -265,7 +250,6 @@ const ChatFullcreen = ({ chat, setChat, initialData,
       if (!selectedChatCompare ||
         chatId !== newMessageRecieved.chat._id
       ) {
-
       } else {
         console.log(newMessageRecieved)
         setMessages([...messages, newData]);
@@ -285,8 +269,6 @@ const ChatFullcreen = ({ chat, setChat, initialData,
               setOpenChat(false)
               navigate("/")
             }} src={x} />
-
-
           </div>
           {loginInfo ?
             <div className='allChatsDiv'>
@@ -374,7 +356,6 @@ const ChatFullcreen = ({ chat, setChat, initialData,
                     </div>}
                   </div>
                 ) : (
-
                   <div style={{
                     position: "absolute",
                     height: "calc(100% - 50px)",
@@ -382,26 +363,28 @@ const ChatFullcreen = ({ chat, setChat, initialData,
                   }}>
                     <MainContainer>
                       <ChatContainer>
-                        <MessageList
-                          scrollBehavior="auto"
-                        >
-                          <button
-                            onClick={() => {
-                              setScrollTrigger(!scrollTrigger)
-                              setSelectedTab("chatbotTab")
-                            }
-                            }
-                            className='messageBackBtn'
+                        {!loadingMsg &&
+                          <MessageList
+                            scrollBehavior="auto"
                           >
-                            <img src={back} className='messageBackIcon' />
-                          </button>
-                          {messages.length > 0 ?
-                            messages.map((message, i) => {
-                              return <Message key={i} model={message} />
-                            }) :
-                            <div className='nomessages'>no messages yet!</div>
-                          }
-                        </MessageList>
+                            <button
+                              onClick={() => {
+                                setScrollTrigger(!scrollTrigger)
+                                setSelectedTab("chatbotTab")
+                              }
+                              }
+                              className='messageBackBtn'
+                            >
+                              <img src={back} className='messageBackIcon' />
+                            </button>
+                            {messages.length > 0 ?
+                              messages.map((message, i) => {
+                                return <Message key={i} model={message} />
+                              }) :
+                              <div className='nomessages'>no messages yet!</div>
+                            }
+                          </MessageList>
+                        }
                         <MessageInput placeholder="Type message here" onSend={handleSend} />
                       </ChatContainer>
                     </MainContainer>
@@ -426,7 +409,6 @@ const ChatFullcreen = ({ chat, setChat, initialData,
                   Please Login or register first!
                 </div>
                 <div className='chatBotLoginLink'>
-
                   <button className='chatbotLoginBtn'
                     onClick={() => {
                       setOpenChat(false);
@@ -441,7 +423,6 @@ const ChatFullcreen = ({ chat, setChat, initialData,
                       navigate("/")
                     }}>Register</button>
                 </div>
-
               </div>
             </div>}
         </div>

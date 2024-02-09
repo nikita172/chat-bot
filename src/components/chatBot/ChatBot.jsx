@@ -27,13 +27,22 @@ const ENDPOINT = "https://chatbot-backend-xk8b.onrender.com/"
 var socket, selectedChatCompare;
 
 const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTab, setSelectedTab, setLoginState, setChatId, chatId }) => {
-  const username = useRef();
-  const password = useRef();
-  const [reset, setReset] = useState(false);
-  const loginInfo = JSON.parse(localStorage.getItem("loginInfo"));
 
+  const loginInfo = JSON.parse(localStorage.getItem("loginInfo"));
   const containerRef = useRef(null);
   const chatContainerRef = useRef(null);
+  const endRef = useRef(null);
+
+  const [messages, setMessages] = useState([]);
+  const [scrollTrigger, setScrollTrigger] = useState(false);
+  const [openPaymentForm, setOpenPaymentForm] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [purchase, setPurchase] = useState(false);
+  const [isEndOfScroll, setIsEndOfScroll] = useState(false);
+  const [loadingMsg, setloadingMsg] = useState(true);
+
+  const navigate = useNavigate()
+
 
   useEffect(() => {
     scrollToBottom();
@@ -44,21 +53,6 @@ const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTa
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
   };
-
-
-  const [messages, setMessages] = useState([
-  ]);
-  const [scrollTrigger, setScrollTrigger] = useState(false);
-  const [openPaymentForm, setOpenPaymentForm] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [purchase, setPurchase] = useState(false);
-  const navigate = useNavigate()
-
-  const endRef = useRef(null);
-
-  const [isEndOfScroll, setIsEndOfScroll] = useState(false);
-
-
 
   const handleScroll = () => {
     const container = containerRef.current;
@@ -82,9 +76,6 @@ const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTa
       behavior: 'smooth',
     });
   };
-
-
-  // console.log(chatId)
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -111,14 +102,17 @@ const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTa
     }
     getChat();
   }, [selectedTab])
+
   useEffect(() => {
     socket = io(ENDPOINT);
     socket.emit("setup", loginInfo);
     socket.on("connected", () => {
     })
   }, []);
+
   const fetchMessages = async () => {
     if (!chatId) return;
+    setloadingMsg(true);
     try {
       const { data } = await axios.get(
         `${apiUrl}/api/message/${chatId}`
@@ -133,10 +127,13 @@ const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTa
       })
       setMessages(newData);
       socket.emit("join chat", chatId);
+      setloadingMsg(false)
     } catch (error) {
+      setloadingMsg(false);
       console.log(error)
     }
   };
+
   useEffect(() => {
     fetchMessages();
     selectedChatCompare = chatId;
@@ -351,7 +348,6 @@ const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTa
                                       </div>
                                     ))}
                                   </div>
-
                                   <button onClick={scrollRight}
                                     disabled={isEndOfScroll} className='leftArrBtn right chatbotLeft'>
                                     <img src={rightArrow} />
@@ -401,27 +397,28 @@ const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTa
                       <div ref={chatContainerRef} style={{ position: "absolute", height: "calc(100% - 50px)", width: "100%" }}>
                         <MainContainer>
                           <ChatContainer>
-                            <MessageList
-                              scrollBehavior="auto"
-                            >
-                              <button
-                                onClick={() => {
-                                  setScrollTrigger(!scrollTrigger);
-                                  setSelectedTab("chatbotTab");
-                                }
-                                }
-                                className='messageBackBtn'
+                            {!loadingMsg &&
+                              <MessageList
+                                scrollBehavior="auto"
                               >
-                                <img src={back} className='messageBackIcon' />
-                              </button>
-                              {messages.length > 0 ?
-                                messages.map((message, i) => {
-                                  return <Message key={i} model={message} />
-                                })
-                                :
-                                <div className='nomessages'>no messages yet!</div>
-                              }
-                            </MessageList>
+                                <button
+                                  onClick={() => {
+                                    setScrollTrigger(!scrollTrigger);
+                                    setSelectedTab("chatbotTab");
+                                  }}
+                                  className='messageBackBtn'
+                                >
+                                  <img src={back} className='messageBackIcon' />
+                                </button>
+                                {
+                                  messages.length > 0 ?
+                                    messages.map((message, i) => {
+                                      return <Message key={i} model={message} />
+                                    })
+                                    :
+                                    <div className='nomessages'>no messages yet!</div>
+                                }
+                              </MessageList>}
                             <MessageInput placeholder="Type message here" onSend={handleSend} />
                           </ChatContainer>
                         </MainContainer>

@@ -31,7 +31,7 @@ const images3 = [
   "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg",
   "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg", "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg", "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg", "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg", "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg",
 ]
-const LandingPage = ({ setLoginState, loginState, setOpenChat, reset, setReset }) => {
+const LandingPage = ({ setLoginState, loginState, setOpenChat, setIsLogout }) => {
   const loginInfo = JSON.parse(localStorage.getItem('loginInfo'))
   const videoRef = useRef(null);
   const videoRef2 = useRef(null);
@@ -92,17 +92,15 @@ const LandingPage = ({ setLoginState, loginState, setOpenChat, reset, setReset }
               </button>
             }
 
-            {loginInfo && <button
-              className={`signupBtn`}
-              onClick={() => {
-                localStorage.clear();
-                setReset(!reset)
-
-
-              }}
-            >
-              Logout
-            </button>}
+            {loginInfo &&
+              <button
+                className={`signupBtn`}
+                onClick={() => {
+                  setIsLogout(true);
+                }}
+              >
+                Logout
+              </button>}
 
           </div>
         </div>

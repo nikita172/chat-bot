@@ -52,7 +52,7 @@ const LandingPage = ({ setLoginState, loginState, setOpenChat, setIsLogout }) =>
 
 
   return (
-    <div className={`landingPage}`}>
+    <div className={`landingPage`}>
 
       <header className='headerContainer'>
         <div className="headerWrapper">

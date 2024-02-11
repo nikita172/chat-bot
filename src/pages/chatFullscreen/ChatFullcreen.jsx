@@ -23,6 +23,8 @@ import {
 } from "@chatscope/chat-ui-kit-react";
 const apiUrl = process.env.REACT_APP_API_URL;
 const ENDPOINT = "https://chatbot-backend-xk8b.onrender.com/";
+// const ENDPOINT = "http://localhost:8000/";
+
 var socket, selectedChatCompare;
 
 const ChatFullcreen = ({ chat, setChat, initialData,
@@ -41,20 +43,34 @@ const ChatFullcreen = ({ chat, setChat, initialData,
   const [messages, setMessages] = useState([
   ]);
   const [loadingMsg, setloadingMsg] = useState(true);
+  const [isBeginningOfScroll, setIsBeginningOfScroll] = useState(true);
+  const [isEndOfScroll, setIsEndOfScroll] = useState(false);
 
 
   const navigate = useNavigate();
 
-  const scrollLeft = () => {
-    if (containerRef.current) {
-      containerRef.current.scrollLeft -= 200;
+  const handleScroll = () => {
+    const container = containerRef.current;
+    if (container) {
+      setIsEndOfScroll(
+        container.scrollLeft + container.clientWidth >= container.scrollWidth
+      );
+      setIsBeginningOfScroll(container.scrollLeft === 0);
     }
   };
 
+  const scrollLeft = () => {
+    containerRef.current.scrollBy({
+      left: - 200,
+      behavior: 'smooth',
+    });
+  };
+
   const scrollRight = () => {
-    if (containerRef.current) {
-      containerRef.current.scrollLeft += 200;
-    }
+    containerRef.current.scrollBy({
+      left: 200,
+      behavior: 'smooth',
+    });
   };
 
   useEffect(() => {
@@ -294,27 +310,23 @@ const ChatFullcreen = ({ chat, setChat, initialData,
                               <div>
                                 <span className='selfGenetrated'>{d.text}</span>
                               </div> :
-                              <div className='chatFullScreenScroll' >
-                                <button onClick={scrollLeft} className='leftArrBtn left'>
-                                  <img src={leftArrow} />
-                                </button>
+                              <div className="image-carousel" >
+                                <button className='leftArrBtn' onClick={scrollLeft} style={{ visibility: isBeginningOfScroll ? 'hidden' : 'visible' }}><img src={leftArrow} /></button>
 
-                                <div className={`chatProductsFullscreen ${openPaymentForm ? "option-invisible" : ""}`} ref={containerRef}>
+                                <div className="image-container" ref={containerRef} onScroll={handleScroll}>
                                   {d.content.map((prod, loc) => (
-                                    <div className='product' key={prod._id} >
+                                    <div className='product' key={prod._id}>
                                       <img className='productImg' src={prod.img} />
                                       <h4 className='productName'>{prod.brandName}</h4>
                                       <span className='productPrice'>${prod.mrp}</span>
                                       <span className='productPrice'>{prod.aboutProductShort}</span>
                                       <span className='purchaseNow' onClick={purchaseHandler}>Purchase Now</span>
-                                      <span className='purchaseNow asktheagentbtn' onClick={() => setSelectedTab("messageTab")} >Ask the agent</span>
+                                      <span className='purchaseNow asktheagentbtn' onClick={() => setSelectedTab("messageTab")}>Ask the agent</span>
                                     </div>
                                   ))}
                                 </div>
-
-                                <button onClick={scrollRight} className='leftArrBtn right'>
-                                  <img src={rightArrow} />
-                                </button>
+                                <button onClick={scrollRight}
+                                  className={`rightArrBtn ${isEndOfScroll ? "invisible" : ""}`} ><img src={rightArrow} /></button>
                               </div>
                             )
                           }

@@ -3,25 +3,10 @@
   bottom: 15px;
   right: 15px;
 }
-.chatBotContainer.expand{
-  left: 0;
-  right: 0;
-  top: 100px;
-  bottom: 0px;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0,0,0,0.5);
-  
+.buttonInvisible{
+  visibility: hidden;
 }
 
-
-@keyframes openChat {
-  from{
-    transform: scale(0);
-  }to{
-    transform: scaleX(1);
-  } 
-}
 .chats{
   border-radius: 10px;
   background-color: rgb(229, 225, 225);
@@ -31,7 +16,41 @@
   /* display: none; */
   /* animation: openChat 0.25s alternate; */
   position: relative;
-
+}
+@media screen and (max-width:1189px){
+  .chats{  
+    width: 30vw;
+  }  
+}
+@media screen and (max-width:899px){
+  .chats{  
+    width: 37vw;
+  } 
+}
+@media screen and (max-width:702px){
+  .chats{  
+    width: 44vw;
+  } 
+}
+@media screen and (max-width:602px){
+  .chats{  
+    width: 51vw;
+  } 
+}
+@media screen and (max-width:507px){
+  .chats{  
+    width: 58vw;
+  } 
+}
+@media screen and (max-width:457px){
+  .chats{  
+    width: 65vw;
+  } 
+}
+@media screen and (max-width:402px){
+  .chats{  
+    width: 90vw;
+  } 
 }
 .chats.chat-expand{  
   width: 90%;
@@ -250,17 +269,7 @@ cursor: pointer;
 
 
 /*product styling */
-.chatScreenScroll{
 
-  width: 270px;
-  display: flex;
-  align-items: center;
-  &:hover{
-    .leftArrBtn{
-      visibility: visible;
-    }
-  }
-}
 .chatProducts{
   margin: 10px auto;
   display: flex;
@@ -272,23 +281,7 @@ cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 15px;
-  margin-right: 10px;
   justify-content: center;
-}
-.product img{
-   flex: 0 0 auto;
-  scroll-snap-align: start;
-  width: 200px;
-  height: 200px;
-}
-.productImg{
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  /* margin-right: 20px; */
- 
-
 }
 
 .productName{
@@ -314,6 +307,43 @@ cursor: pointer;
   color: white;
   font-weight: 700;
   cursor: pointer;
+}
+.image-carousel {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  width: 248px;
+  overflow: hidden;
+}
+
+.image-container {
+  display: flex;
+  overflow-x: scroll;
+  scroll-behavior: smooth; 
+  &::-webkit-scrollbar{
+  width: 0;
+}
+}
+/* ::-webkit-scrollbar{
+  width: 0;
+} */
+
+.leftArrBtn, .rightArrBtn{
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer; 
+}
+
+
+.productImg {
+  flex-shrink: 0;
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+}
+.rightArrBtn.invisible{
+  visibility: hidden;
 }
 
 

@@ -24,6 +24,8 @@ import {
 } from "@chatscope/chat-ui-kit-react";
 const apiUrl = process.env.REACT_APP_API_URL;
 const ENDPOINT = "https://chatbot-backend-xk8b.onrender.com/"
+// const ENDPOINT = "http://localhost:8000/";
+
 var socket, selectedChatCompare;
 
 const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTab, setSelectedTab, setLoginState, setChatId, chatId }) => {
@@ -40,6 +42,7 @@ const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTa
   const [purchase, setPurchase] = useState(false);
   const [isEndOfScroll, setIsEndOfScroll] = useState(false);
   const [loadingMsg, setloadingMsg] = useState(true);
+  const [isBeginningOfScroll, setIsBeginningOfScroll] = useState(true);
 
   const navigate = useNavigate()
 
@@ -59,12 +62,13 @@ const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTa
       setIsEndOfScroll(
         container.scrollLeft + container.clientWidth >= container.scrollWidth
       );
+      setIsBeginningOfScroll(container.scrollLeft === 0);
     }
   };
 
   const scrollLeft = () => {
     containerRef.current.scrollBy({
-      left: -200,
+      left: - 200,
       behavior: 'smooth',
     });
   };
@@ -288,7 +292,7 @@ const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTa
       }
     });
   });
-
+  console.log(isEndOfScroll)
 
   return (
     <div className={`chatBotContainer ${openPaymentForm ? "open-form" : ""}`}
@@ -327,15 +331,13 @@ const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTa
                               (d.type == "self" ?
                                 <div>
                                   <span className='selfGenetrated'>{d.text}</span>
-                                </div> :
-                                <div className='chatScreenScroll' >
+                                </div>
+                                :
 
-                                  <button onClick={scrollLeft} className='leftArrBtn left chatbotLeft'>
-                                    <img src={leftArrow} />
-                                  </button>
+                                <div className="image-carousel" >
+                                  <button className='leftArrBtn' onClick={scrollLeft} style={{ visibility: isBeginningOfScroll ? 'hidden' : 'visible' }}><img src={leftArrow} /></button>
 
-                                  <div className={`chatProducts ${openPaymentForm ? "option-invisible" : ""}`} ref={containerRef}
-                                    onScroll={handleScroll}>
+                                  <div className="image-container" ref={containerRef} onScroll={handleScroll}>
                                     {d.content.map((prod, loc) => (
                                       <div className='product' key={prod._id}>
                                         <img className='productImg' src={prod.img} />
@@ -348,9 +350,7 @@ const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTa
                                     ))}
                                   </div>
                                   <button onClick={scrollRight}
-                                    disabled={isEndOfScroll} className='leftArrBtn right chatbotLeft'>
-                                    <img src={rightArrow} />
-                                  </button>
+                                    className={`rightArrBtn ${isEndOfScroll ? "invisible" : ""}`} ><img src={rightArrow} /></button>
                                 </div>
                               )
                             }

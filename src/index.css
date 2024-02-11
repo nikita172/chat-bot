@@ -19,8 +19,40 @@ body {
   overflow: hidden;
 }
 @media screen and (max-width:1306px) {
-  .headerContainer{
-    
+  .sectionPart1{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+  .sectionPart2{
+    display: flex;
+    flex-direction: column;
   }
+  .section13Contents{
+    display: flex;
+    flex-direction: column;
+  }
+  .mainSectionSecondPart{
+   width: 375px;
+  }
+  .mainSection7Title{
+    /* font-size: 12px; */
+  }
+  .signinInput2{
+    width: 375px;
+  }
+  .section10 img{
+    width: 375px;
+  }
+  .section6Wrapper{
+    width:375px;
+  }
+  .mainSectionRightImg{
+    width: 200px;
+    height: 200px;
+}
+.mainSectionLeft{
+  
+}
   
 }

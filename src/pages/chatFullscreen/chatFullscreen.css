@@ -81,17 +81,3 @@ cursor: pointer;
   width: 200px;
   height: 200px;
 }
-.leftArrBtn{
-  visibility: hidden;
-  background-color: transparent;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  height: fit-content;
-}
-.leftArrBtn.left{
-  margin-right: 10px;
-}
-.leftArrBtn.rightt{
-  margin-left: 10px;
-}

@@ -171,7 +171,7 @@ body {
   flex-direction: column;
   }
 }
-@media screen and (max-width:700px){
+/* @media screen and (max-width:700px){
   .mainSectionTitle {
     font-size: 40px;
   }
@@ -185,10 +185,10 @@ body {
   .mainSectionTitle {
     font-size: 30px;
   }
-}
+} */
 @media screen and (max-width:455px){
   .mainSectionTitle {
-    font-size: 25px;
+    font-size: 40px;
     margin-top: 20px;
   }
 }

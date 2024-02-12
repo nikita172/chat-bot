@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import x from "../../assets/images/x.svg"
 import "./login.css";
 import axios from "axios";
@@ -7,6 +7,7 @@ const Login = ({ setLoginState, setChatId, setReset, reset }) => {
   const username = useRef();
   const password = useRef();
   const apiUrl = process.env.REACT_APP_API_URL;
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -16,6 +17,7 @@ const Login = ({ setLoginState, setChatId, setReset, reset }) => {
       userType: "User"
     }
     try {
+      setLoading(true);
       const data = await axios.post(`${apiUrl}/admin/login`, obj)
       if (data.data.status) {
         localStorage.setItem('loginInfo', JSON.stringify(data.data.user._id))
@@ -25,9 +27,12 @@ const Login = ({ setLoginState, setChatId, setReset, reset }) => {
       } else {
         toast.error(data.data.message)
       }
+      setLoading(false);
     }
     catch (err) {
       console.log(err)
+      setLoading(false);
+
     }
   }
   return (
@@ -55,7 +60,7 @@ const Login = ({ setLoginState, setChatId, setReset, reset }) => {
             </div>
             <div className="buttonGroup">
               <button type="submit" className="primary" id="loginBtn" >
-                Login
+                {loading ? 'Loading...' : 'Login'}
               </button>
               <span className='navigateToLogin'>New user? <span
                 onClick={() => setLoginState("register")}

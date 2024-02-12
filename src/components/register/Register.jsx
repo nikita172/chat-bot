@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import axios from "axios";
 import x from "../../assets/images/x.svg"
 import { toast } from 'react-toastify';
 const Register = ({ setLoginState, setChatId, chatId, reset, setReset }) => {
+  const [loading, setLoading] = useState(false);
   const username = useRef();
   const password = useRef();
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -14,6 +15,7 @@ const Register = ({ setLoginState, setChatId, chatId, reset, setReset }) => {
       userType: "User"
     }
     try {
+      setLoading(true);
       const data = await axios.post(`${apiUrl}/admin/register`, obj)
       if (data.data.status) {
         localStorage.setItem('loginInfo', JSON.stringify(data.data.admin._id))
@@ -27,9 +29,12 @@ const Register = ({ setLoginState, setChatId, chatId, reset, setReset }) => {
         setLoginState("");
         setReset(!reset)
 
+
       } else {
         toast.error(data.data.message)
+
       }
+      setLoading(false);
 
     }
     catch (err) {
@@ -37,6 +42,8 @@ const Register = ({ setLoginState, setChatId, chatId, reset, setReset }) => {
       console.log(err)
       setLoginState("");
       setReset(!reset)
+      setLoading(false);
+
     }
   }
   return (
@@ -64,7 +71,7 @@ const Register = ({ setLoginState, setChatId, chatId, reset, setReset }) => {
             </div>
             <div className="buttonGroup">
               <button type="submit" className="primary" id="loginBtn" >
-                Register
+                {loading ? 'Loading...' : 'Register'}
               </button>
               <span className='navigateToLogin'>Already have an account? <span
                 className='anchorTag'

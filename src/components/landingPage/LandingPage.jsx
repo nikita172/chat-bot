@@ -2,8 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import "./landingPage.css";
 import logo from "../../assets/images/message-square.svg";
 import check from "../../assets/images/check.svg";
+import menu from "../../assets/images/menu.svg";
 import ScrollAnimation from '../scrollAnimation/ScrollAnimation';
 import { useNavigate } from 'react-router-dom';
+import Navigationbar from '../navigationbar/Navigationbar';
 const data = [
   "Let <b>chatbots</b> engage, nurture, qualify, and convert leads on their own across different channels",
   "Greet customers and quickly route chats with the <b>help of AI</b>",
@@ -32,6 +34,7 @@ const images3 = [
   "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg", "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg", "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg", "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg", "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg",
 ]
 const LandingPage = ({ setLoginState, loginState, setOpenChat, setIsLogout }) => {
+  const [navigationOpen, setNavigationOpen] = useState(false);
   const loginInfo = JSON.parse(localStorage.getItem('loginInfo'))
   const videoRef = useRef(null);
   const videoRef2 = useRef(null);
@@ -50,9 +53,14 @@ const LandingPage = ({ setLoginState, loginState, setOpenChat, setIsLogout }) =>
     }
   }, []);
 
+  const navigationHandler = () => {
+    setNavigationOpen(true);
+  }
+
 
   return (
     <div className={`landingPage`}>
+      <Navigationbar setNavigationOpen={setNavigationOpen} navigationOpen={navigationOpen} setLoginState={setLoginState} setIsLogout={setIsLogout} />
 
       <header className='headerContainer'>
         <div className="headerWrapper">
@@ -103,6 +111,16 @@ const LandingPage = ({ setLoginState, loginState, setOpenChat, setIsLogout }) =>
               </button>}
 
           </div>
+          {
+            navigationOpen ?
+              <button onClick={() => setNavigationOpen(false)}>close</button>
+              :
+              <div className='menuBtn' onClick={navigationHandler}>
+                <span className='menuTag'>Menu</span>
+                <img style={{ width: "30px" }} src={menu} />
+              </div>
+          }
+
         </div>
       </header >
 
@@ -133,7 +151,7 @@ const LandingPage = ({ setLoginState, loginState, setOpenChat, setIsLogout }) =>
                 </div>
               </div>
               <div className="trustedBrands">
-                <span className='trustedBrandCount'>Trusted by <b>37,000+</b> <br /> companies</span>
+                <span className='trustedBrandCount'>Trusted by <b>37,000+</b> companies</span>
                 <img className='trustedBrandImg' src="https://www.livechat.com/companies_huf5a8460ee35e2e2e56c3937ed66d5d30_5828_739x0_resize_q75_h2_catmullrom_3.57883da7e4228fa5b906ace1110d449da93fe9c6418e6b98117e7e52317d1a75.webp" />
               </div>
             </div>
@@ -141,6 +159,7 @@ const LandingPage = ({ setLoginState, loginState, setOpenChat, setIsLogout }) =>
               <video className='mainSectionRightImg' ref={videoRef} autoPlay loop muted >
                 <source src="https://www.livechat.com/live-chat-app.edf8d10b57eb5e0b135b377edc90064f66d434910cd1def15a4f0ccaa4453857.mp4" type="video/mp4" />
               </video>
+              <img className='mainSectionRightImg hide' src="https://www.livechat.com/live-chat-app-mobile_hue6b5c5031ca89f414191816fdb90adfb_212093_1280x0_resize_q75_h2_catmullrom.8516a337516534a875fb257eebdf92c85f0674614bea39669350b8b0d17f5193.webp" />
             </div>
           </div>
         </section>
@@ -151,6 +170,7 @@ const LandingPage = ({ setLoginState, loginState, setOpenChat, setIsLogout }) =>
             <video className='section2Video' ref={videoRef2} autoPlay loop muted>
               <source src="https://www.livechat.com/livechat-channels.22ffb37b09dc98a076bee34058689ef02da40ee00af6712288b01281e6140c6c.mp4" type="video/mp4" />
             </video>
+            <img className='section2Video hide' src="https://www.livechat.com/channels_huaae9ab9352c2851b0bec215d25429e97_29733_822x0_resize_q75_h2_catmullrom_3.8655ecb08408040443f554646044292ff2e5ac9607d2449860644763a65ba92c.webp" />
           </div>
         </section>
 
@@ -193,6 +213,28 @@ const LandingPage = ({ setLoginState, loginState, setOpenChat, setIsLogout }) =>
             <p>Solve customer problems <b>proactively</b></p>
             <p>Anticipate questions and <b>respond faster</b></p>
           </div>
+          <div className='section5BottomSection show'>
+            <div className='section5BottomDiv'>
+              <img className='section5BottomCheckImg' src={check} />
+              <div className='section5BottomP'>
+                <span>Create a chat experience your customers <b>know and love</b> </span>
+
+              </div>
+            </div>
+            <div className='section5BottomDiv'>
+              <img className='section5BottomCheckImg' src={check} />
+              <div className='section5BottomP'>
+                <span>Solve customer problems <b>proactively</b> </span>
+              </div>
+            </div>
+            <div className='section5BottomDiv'>
+              <img className='section5BottomCheckImg' src={check} />
+              <div className='section5BottomP'>
+                <span>Anticipate questions and <b>respond faster</b> </span>
+
+              </div>
+            </div>
+          </div>
           <h2>Explore ways to sell with LiveChat  {">"}</h2>
         </section>
 
@@ -223,7 +265,7 @@ const LandingPage = ({ setLoginState, loginState, setOpenChat, setIsLogout }) =>
                     </div>
                   ))}
                 </div>
-                <div className="logos-slide">
+                <div className="logos-slide logos-slide-hide">
                   {images.map((img, i) => (
                     <div className='imgGrp' key={i}>
                       <img src={img} />
@@ -241,7 +283,7 @@ const LandingPage = ({ setLoginState, loginState, setOpenChat, setIsLogout }) =>
                     </div>
                   ))}
                 </div>
-                <div className="logos-slide">
+                <div className="logos-slide logos-slide-hide">
                   {images2.map((img, i) => (
                     <div className='imgGrp' key={i}>
                       <img src={img} />
@@ -259,7 +301,7 @@ const LandingPage = ({ setLoginState, loginState, setOpenChat, setIsLogout }) =>
                     </div>
                   ))}
                 </div>
-                <div className="logos-slide">
+                <div className="logos-slide logos-slide-hide">
                   {images3.map((img, i) => (
                     <div className='imgGrp' key={i}>
                       <img src={img} />
@@ -432,7 +474,8 @@ const LandingPage = ({ setLoginState, loginState, setOpenChat, setIsLogout }) =>
           <h4>
             Industry leaders trust LiveChat software
           </h4>
-          <img src="https://www.livechat.com/livechat-customers-logos_hu6cc45f3fb482bd079bd6b414d0fd08ca_18315_2240x0_resize_q75_h2_catmullrom_3.63b2acdbb6dc14f48993d05c290f152f08c672c408d40719d1ed4af15e647574.webp" />
+          <img className='section10Img1' src="https://www.livechat.com/livechat-customers-logos_hu6cc45f3fb482bd079bd6b414d0fd08ca_18315_2240x0_resize_q75_h2_catmullrom_3.63b2acdbb6dc14f48993d05c290f152f08c672c408d40719d1ed4af15e647574.webp" />
+          <img className='section10Img2' src="https://www.livechat.com/logos-mobile_hu56068eac70caf72eb4748cd8e6910224_17462_1352x0_resize_q75_h2_catmullrom_3.0f721b6d87aa0255a726e811cc7ac73da8fde77e9752fb56a511d849a9abb6b4.webp" />
           <h5>See case Studies {">"}</h5>
         </section>
 

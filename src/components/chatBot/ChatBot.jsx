@@ -23,8 +23,8 @@ import {
   TypingIndicator
 } from "@chatscope/chat-ui-kit-react";
 const apiUrl = process.env.REACT_APP_API_URL;
-// const ENDPOINT = "https://chatbot-backend-xk8b.onrender.com/"
-const ENDPOINT = "http://localhost:8000/";
+const ENDPOINT = "https://chatbot-backend-xk8b.onrender.com/"
+// const ENDPOINT = "http://localhost:8000/";
 
 var socket, selectedChatCompare;
 

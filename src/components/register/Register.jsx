@@ -21,7 +21,7 @@ const Register = ({ setLoginState, setChatId, chatId, reset, setReset }) => {
         localStorage.setItem('loginInfo', JSON.stringify(data.data.admin._id))
         const res = {
           userId: data.data.admin._id,
-          adminId: "65bc9457e5434f76dd38938d"
+          adminId: "65cb4811a76b838a8c9ccfd0"
         }
         const result = await axios.post(`${apiUrl}/api/chat`, res)
         setChatId(result.data._id);

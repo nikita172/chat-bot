@@ -22,8 +22,8 @@ import {
   MessageInput,
 } from "@chatscope/chat-ui-kit-react";
 const apiUrl = process.env.REACT_APP_API_URL;
-const ENDPOINT = "https://chatbot-backend-xk8b.onrender.com/";
-// const ENDPOINT = "http://localhost:8000/";
+// const ENDPOINT = "https://chatbot-backend-xk8b.onrender.com/";
+const ENDPOINT = "http://localhost:8000/";
 
 var socket, selectedChatCompare;
 
@@ -178,7 +178,7 @@ const ChatFullcreen = ({ chat, setChat, initialData,
       if (loginInfo) {
         const res = {
           userId: loginInfo,
-          adminId: "65bc9457e5434f76dd38938d"
+          adminId: "65cb4811a76b838a8c9ccfd0"
         }
         try {
           const result = await axios.post(`${apiUrl}/api/chat`, res)

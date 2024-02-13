@@ -112,13 +112,11 @@ const LandingPage = ({ setLoginState, loginState, setOpenChat, setIsLogout }) =>
 
           </div>
           {
-            navigationOpen ?
-              <button onClick={() => setNavigationOpen(false)}>close</button>
-              :
-              <div className='menuBtn' onClick={navigationHandler}>
-                <span className='menuTag'>Menu</span>
-                <img style={{ width: "30px" }} src={menu} />
-              </div>
+            !navigationOpen &&
+            <div className='menuBtn' onClick={navigationHandler}>
+              <span className='menuTag'>Menu</span>
+              <img style={{ width: "30px" }} src={menu} />
+            </div>
           }
 
         </div>

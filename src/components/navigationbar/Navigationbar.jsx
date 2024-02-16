@@ -2,7 +2,7 @@ import React from 'react'
 import "./navigationbar.css"
 import x from "../../assets/images/x.svg"
 
-const Navigationbar = ({ setNavigationOpen, navigationOpen, setLoginState, setIsLogout }) => {
+const Navigationbar = ({ setNavigationOpen, navigationOpen, setLoginState, setIsLogout, setIsResetPassword }) => {
   const loginInfo = JSON.parse(localStorage.getItem('loginInfo'))
   return (
     <div className={`navigationContainer ${navigationOpen ? "open" : ""}`}>
@@ -20,10 +20,7 @@ const Navigationbar = ({ setNavigationOpen, navigationOpen, setLoginState, setIs
         <div className="menu">Customers</div>
         <div className="menu">Resources</div>
 
-
         <div className='authMenus'>
-
-
           {!loginInfo && <div className="authMenuBtn" onClick={() => {
             setLoginState("login")
             setNavigationOpen(false)
@@ -34,13 +31,21 @@ const Navigationbar = ({ setNavigationOpen, navigationOpen, setLoginState, setIs
               setNavigationOpen(false)
             }}>Sign up free</div>}
 
-          {loginInfo && <div className="authMenuBtn"
-            onClick={() => {
-              setLoginState("")
-              setNavigationOpen(false)
-              setIsLogout(true);
-            }}>Logout</div>}
-
+          {loginInfo &&
+            <>
+              <div className="authMenuBtn"
+                onClick={() => {
+                  setLoginState("reset-password")
+                  setNavigationOpen(false)
+                  setIsResetPassword(true);
+                }}>Reset Password</div>
+              <div className="authMenuBtn"
+                onClick={() => {
+                  setLoginState("")
+                  setNavigationOpen(false)
+                  setIsLogout(true);
+                }}>Logout</div>
+            </>}
         </div>
       </div>
 

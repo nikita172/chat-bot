@@ -249,6 +249,7 @@ const ChatFullcreen = ({ chat, setChat, initialData,
         direction: "outgoing"
       }
       socket.emit("new message", data);
+      socket.emit("new notification", data);
       setMessages([...messages, newData]);
     } catch (error) {
       console.log(error)
@@ -257,6 +258,7 @@ const ChatFullcreen = ({ chat, setChat, initialData,
 
   useEffect(() => {
     socket.on("message received", (newMessageRecieved) => {
+      // console.log("new msg received")
       const newData = {
         message: newMessageRecieved.content,
         sentTime: "just now",

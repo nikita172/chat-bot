@@ -33,7 +33,7 @@ const images3 = [
   "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg",
   "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg", "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg", "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg", "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg", "https://www.livechat.com/logos/integrations/helpdesk.765029e619b1b00576c175c54ecf5be0ae3efe6402d270174d8dc678d8f81e70.svg",
 ]
-const LandingPage = ({ setLoginState, loginState, setOpenChat, setIsLogout }) => {
+const LandingPage = ({ setLoginState, loginState, setOpenChat, setIsLogout, setIsResetPassword }) => {
   const [navigationOpen, setNavigationOpen] = useState(false);
   const loginInfo = JSON.parse(localStorage.getItem('loginInfo'))
   const videoRef = useRef(null);
@@ -60,7 +60,7 @@ const LandingPage = ({ setLoginState, loginState, setOpenChat, setIsLogout }) =>
 
   return (
     <div className={`landingPage`}>
-      <Navigationbar setNavigationOpen={setNavigationOpen} navigationOpen={navigationOpen} setLoginState={setLoginState} setIsLogout={setIsLogout} />
+      <Navigationbar setNavigationOpen={setNavigationOpen} navigationOpen={navigationOpen} setLoginState={setLoginState} setIsLogout={setIsLogout} setIsResetPassword={setIsResetPassword} />
 
       <header className='headerContainer'>
         <div className="headerWrapper">
@@ -101,14 +101,28 @@ const LandingPage = ({ setLoginState, loginState, setOpenChat, setIsLogout }) =>
             }
 
             {loginInfo &&
-              <button
-                className={`signupBtn`}
-                onClick={() => {
-                  setIsLogout(true);
-                }}
-              >
-                Logout
-              </button>}
+              <>
+                <button
+                  className={`signupBtn ${loginState === "reset-password" ? "selected" : ""}`}
+                  onClick={() => {
+                    setIsResetPassword(true)
+                    setLoginState("reset-password")
+                  }}
+                >
+                  ResetPassword
+                </button>
+
+                <button
+                  className={`signupBtn`}
+                  onClick={() => {
+                    setIsLogout(true);
+                  }}
+                >
+                  Logout
+                </button>
+
+              </>
+            }
 
           </div>
           {

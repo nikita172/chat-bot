@@ -258,6 +258,16 @@ const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTa
           userId: loginInfo
         }
       );
+      const notifData = {
+        messageId: data._id,
+        receiverId: "65cb4811a76b838a8c9ccfd0"
+      }
+      try {
+        const { notifResponse } = await axios.post(`${apiUrl}/api/notification`, notifData);
+      } catch (err) {
+        console.log(err)
+      }
+
       const newData = {
         message: data.content,
         sentTime: "just now",
@@ -275,6 +285,7 @@ const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTa
   };
   useEffect(() => {
     socket.on("message received", (newMessageRecieved) => {
+      // console.log("msg re")
       const newData = {
         message: newMessageRecieved.content,
         sentTime: "just now",
@@ -294,7 +305,6 @@ const ChatBot = ({ chat, setChat, openChat, setOpenChat, initialData, selectedTa
       }
     });
   });
-  console.log(isEndOfScroll)
 
   return (
     <div className={`chatBotContainer ${openPaymentForm ? "open-form" : ""}`}
